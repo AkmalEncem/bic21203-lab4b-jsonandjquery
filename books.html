@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Question 2 | Books from JSON</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f4f4;
+    }
+    main {
+      width: 100%;
+      max-width: 480px;
+      margin: 40px 16px;
+      padding: 24px;
+      box-sizing: border-box;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      text-align: center;
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin-top: 0;
+    }
+    h3 {
+      font-size: 1rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    #errorMessage {
+      color: red;
+      font-weight: bold;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 14px;
+      border: 1px solid #767676;
+      border-radius: 3px;
+      background: #efefef;
+      color: #000;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h2>Books from JSON</h2>
+
+    <h3>Title of the first book</h3>
+    <p id="firstTitle"></p>
+
+    <h3>Author of the second book</h3>
+    <p id="secondAuthor"></p>
+
+    <h3>Genres by book</h3>
+    <ul id="genreList"></ul>
+
+    <p id="errorMessage"></p>
+    <a class="back-btn" href="index.html">&larr; Back</a>
+  </main>
+  <script>
+    async function loadBooks() {
+      try {
+        const response = await fetch("books.json");
+
+        if (!response.ok) {
+          throw new Error("Cannot load books.json");
+        }
+
+        const data = await response.json();
+        const books = data.books;
+
+        document.getElementById("firstTitle").textContent = books[0].title;
+        document.getElementById("secondAuthor").textContent = books[1].author;
+
+        const genreList = document.getElementById("genreList");
+        for (let i = 0; i < books.length; i++) {
+          const item = document.createElement("li");
+          item.textContent = books[i].title + " — " + books[i].genres.join(", ");
+          genreList.appendChild(item);
+        }
+      } catch (error) {
+        document.getElementById("errorMessage").textContent =
+          "Sorry, the book data could not be loaded. Please run this page on a local server.";
+      }
+    }
+
+    loadBooks();
+  </script>
+</body>
+</html>
