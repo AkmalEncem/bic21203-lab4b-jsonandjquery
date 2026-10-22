@@ -57,12 +57,12 @@ The three jQuery methods used are `.text()`, `.addClass()` and `.on("click", ...
 ## Screenshots
 
 ### Q1
-![Q1 books.json](screenshots/q1-books-json.png)
+![Q1 books.json](q1-books-json.png)
 
 ### Q2
-![Q2 output](screenshots/q2-output.png)
-![Q2 error message when opened with file://](screenshots/q2-error.png)
+![Q2 output](q2-output.png)
+![Q2 error message when opened with file://](q2-error.png)
 
 ### Q3
-![Q3 after page load](screenshots/q3-load.png)
-![Q3 after clicking the button](screenshots/q3-clicked.png)
+![Q3 after page load](q3-load.png)
+![Q3 after clicking the button](q3-clicked.png)
