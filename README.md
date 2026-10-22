@@ -5,76 +5,64 @@
 **Course:** BIC21203 Web Development
 **Faculty:** Faculty of Computer Science and Information Technology, UTHM
 
+**Live demo:** https://akmalencem.github.io/bic21203-lab4b-jsonandjquery/
+
 ## About
 
-This lab creates a JSON dataset, loads and displays selected data with the native `fetch()` API, and compares native DOM operations with jQuery 4.0.0. Text is displayed with `textContent` and `createElement()` (no `innerHTML`).
+This lab has three parts. It creates a JSON dataset, loads and displays that data with the native `fetch()` API, and compares native JavaScript DOM code with the jQuery 4.0.0 equivalents. Text is inserted with `textContent` and `createElement()` (no `innerHTML`).
 
 ## Project Structure
 
 | File | Description |
 | --- | --- |
-| `index.html` | Home page with links to Q1, Q2 and Q3 |
-| `books.json` | Question 1: book data in JSON |
-| `books.html` | Question 2: loads `books.json` with `fetch()` and displays the data |
-| `jquery-dom.html` | Question 3: jQuery DOM and event operations |
+| `index.html` | Home page that links to Q1, Q2 and Q3 |
+| `books.json` | Question 1: JSON dataset of two books |
+| `books.html` | Question 2: Retrieve and display JSON data with `fetch()` |
+| `jquery-dom.html` | Question 3: jQuery DOM and events |
 
-`books.html` and `jquery-dom.html` have a Back button that returns to `index.html`.
+Every question page has a Back button that returns to `index.html` except question 1 page.
 
-## Setup Instructions
+## How to Run
 
-`books.html` must run on a local server, because `fetch()` cannot read local files opened with `file://`.
+`fetch()` does not work when a page is opened directly with `file://`, so Q2 must be run through a server.
 
-1. Install [Visual Studio Code](https://code.visualstudio.com/).
-2. Open the Extensions panel (`Ctrl+Shift+X`), search for **Live Server** (by Ritwick Dey) and click **Install**.
-3. Download or clone this repository, then open the project folder with **File → Open Folder**.
-4. Right-click `index.html` and choose **Open with Live Server** (or click **Go Live** at the bottom right).
-5. The browser opens at an address like `http://127.0.0.1:5500/`. Choose a question from the home page.
+1. Open the live demo link above (GitHub Pages serves the files over HTTPS), **or**
+2. Download this repository, open the folder in VS Code, install the **Live Server** extension, then right-click `index.html` and choose **Open with Live Server**.
+3. Choose a question from the home page.
 
-`jquery-dom.html` loads jQuery from the official CDN (`https://code.jquery.com/jquery-4.0.0.min.js`), so it needs an internet connection.
+### Q1: Create and Structure JSON Data
+`books.json` has a top-level `"books"` array with two book objects. Each book has `title` (string), `author` (string), `publicationYear` (number) and `genres` (array of strings). It uses double-quoted property names and has no trailing commas.
 
-## Question 1: Create and Structure JSON Data
+The file parses successfully, because `books.html` loads it without errors.
 
-`books.json` has a top-level `"books"` array with two book objects. Each book contains:
+### Q2: Retrieve and Display JSON Data
+1. Open `books.html` through a local server or the live demo.
+2. The page uses `fetch("books.json")` and displays:
+   - Title of the first book: The Great Gatsby
+   - Author of the second book: Harper Lee
+   - Genres grouped by book:
+     - The Great Gatsby — Fiction, Classics
+     - To Kill a Mockingbird — Fiction, Coming-of-Age
+3. If the request fails or the JSON is invalid, a friendly error message is shown instead. This can be seen by opening `books.html` directly with `file://`.
 
-- `title` (string)
-- `author` (string)
-- `publicationYear` (number)
-- `genres` (array of strings)
+The data is loaded with `async/await` inside a `try...catch`, and the list is built with `document.createElement()` and `textContent`.
 
-The file uses double-quoted property names and has no trailing commas. It opens from `index.html` in a new tab, and VS Code shows no problems for it.
+### Q3: Compare Native JavaScript and jQuery
+1. Open `jquery-dom.html`. It uses the jQuery 4.0.0 full build from the official CDN: `https://code.jquery.com/jquery-4.0.0.min.js`.
+2. On page load, the text of `#myElement` changes to "Modified Text" and `#myDIV` gets the `myStyle` class (coral background).
+3. Click **Click me**. An alert shows "Button clicked!".
 
-### Screenshots
-![books.json file](screenshots/q1-json.png)
-![No problems in VS Code](screenshots/q1-no-problems.png)
+The three jQuery methods used are `.text()`, `.addClass()` and `.on("click", ...)`.
 
-## Question 2: Retrieve and Display JSON Data
+## Screenshots
 
-`books.html` reads `books.json` with `fetch()` and `async/await`, then shows the following in the page:
+### Q1
+![Q1 books.json](screenshots/q1-books-json.png)
 
-- (a) Title of the first book: The Great Gatsby
-- (b) Author of the second book: Harper Lee
-- (c) Genres of both books, grouped by title:
-  - The Great Gatsby — Fiction, Classics
-  - To Kill a Mockingbird — Fiction, Coming-of-Age
+### Q2
+![Q2 output](screenshots/q2-output.png)
+![Q2 error message when opened with file://](screenshots/q2-error.png)
 
-If the file cannot be loaded or the JSON is invalid, a user-friendly error message is shown instead.
-
-### Screenshots
-![Q2 output on a local server](screenshots/q2-output.png)
-![Q2 error message](screenshots/q2-error.png)
-
-## Question 3: Compare Native JavaScript and jQuery
-
-`jquery-dom.html` uses the jQuery equivalents of the three native operations:
-
-| Native JavaScript | jQuery |
-| --- | --- |
-| `document.getElementById("myElement").textContent = "Modified Text";` | `$("#myElement").text("Modified Text");` |
-| `document.querySelector("#myDIV").classList.add("myStyle");` | `$("#myDIV").addClass("myStyle");` |
-| `document.getElementById("myButton").addEventListener("click", ...)` | `$("#myButton").on("click", ...)` |
-
-When the page loads, the text of `#myElement` becomes "Modified Text" and `#myDIV` gets the `myStyle` class (coral background). Clicking **Click me** shows the alert "Button clicked!".
-
-### Screenshots
-![Q3 page after loading](screenshots/q3-page.png)
-![Q3 alert after clicking the button](screenshots/q3-alert.png)
+### Q3
+![Q3 after page load](screenshots/q3-load.png)
+![Q3 after clicking the button](screenshots/q3-clicked.png)
